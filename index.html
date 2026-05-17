@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MySocial Premium</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+<style>
+
+:root{
+--bg:#f8fafc;
+--card:#ffffffcc;
+--primary:#1877f2;
+--secondary:#c084fc;
+--text:#0f172a;
+--muted:#94a3b8;
+--shadow:0 8px 24px rgba(15,23,42,0.06);
+--radius:28px;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,Arial,sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+padding-bottom:110px;
+overflow-x:hidden;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeSlideUp{
+0%{
+opacity:0;
+transform:translateY(10px);
+}
+100%{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@keyframes pulse{
+0%{
+transform:scale(1);
+}
+50%{
+transform:scale(1.05);
+}
+100%{
+transform:scale(1);
+}
+}
+
+/* TOPBAR */
+
+.topbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:70px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 18px;
+background:rgba(255,255,255,0.72);
+backdrop-filter:blur(12px);
+z-index:999;
+border-bottom:1px solid rgba(255,255,255,0.4);
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo-circle{
+width:46px;
+height:46px;
+border-radius:50%;
+background:linear-gradient(135deg,var(--primary),var(--secondary));
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
+font-size:20px;
+animation:pulse 3s infinite;
+box-shadow:0 8px 18px rgba(24,119,242,0.25);
+}
+
+.logo h4{
+margin:0;
+font-weight:800;
+letter-spacing:-0.5px;
+}
+
+.top-icons i{
+font-size:20px;
+margin-left:18px;
+color:#334155;
+}
+
+/* PAGE */
+
+.page{
+display:none;
+padding-top:86px;
+animation:fadeSlideUp .35s ease-out;
+}
+
+.active-page{
+display:block;
+}
+
+/* POST CARD */
+
+.post-card{
+background:var(--card);
+backdrop-filter:blur(10px);
+margin:16px;
+padding:18px;
+border-radius:32px;
+box-shadow:var(--shadow);
+border:1px solid rgba(255,255,255,0.5);
+transition:.25s ease;
+}
+
+.post-card:hover{
+transform:translateY(-2px);
+box-shadow:0 20px 30px -12px rgba(0,0,0,0.08);
+}
+
+.post-top{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.post-profile{
+width:52px;
+height:52px;
+border-radius:50%;
+object-fit:cover;
+padding:2px;
+background:linear-gradient(135deg,var(--primary),var(--secondary));
+}
+
+.post-name{
+font-weight:700;
+font-size:15px;
+}
+
+.post-time{
+font-size:12px;
+color:var(--muted);
+margin-top:2px;
+}
+
+.post-media{
+margin-top:16px;
+border-radius:24px;
+overflow:hidden;
+background:#e2e8f0;
+}
+
+.post-media img{
+width:100%;
+max-height:560px;
+object-fit:cover;
+display:block;
+}
+
+.post-media iframe{
+width:100%;
+height:320px;
+border:none;
+display:block;
+}
+
+.post-caption{
+margin-top:14px;
+font-size:15px;
+line-height:1.5;
+color:#334155;
+}
+
+/* ACTIONS */
+
+.post-actions{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:18px;
+}
+
+.like-btn{
+font-weight:700;
+color:#e11d48;
+cursor:pointer;
+display:flex;
+align-items:center;
+gap:6px;
+transition:.2s;
+}
+
+.like-btn i{
+transition:.2s;
+}
+
+.like-btn:active i{
+transform:scale(1.2);
+}
+
+.points{
+font-weight:700;
+background:linear-gradient(135deg,#f59e0b,#facc15);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* BOX */
+
+.box{
+background:var(--card);
+margin:16px;
+padding:20px;
+border-radius:32px;
+backdrop-filter:blur(12px);
+box-shadow:var(--shadow);
+border:1px solid rgba(255,255,255,0.5);
+animation:fadeSlideUp .35s ease-out;
+}
+
+.box h4{
+font-weight:800;
+margin-bottom:10px;
+}
+
+/* INPUT */
+
+.form-control{
+border:none;
+border-radius:24px;
+padding:15px 18px;
+margin-top:14px;
+background:#fff;
+box-shadow:inset 0 0 0 1px #e2e8f0;
+font-size:15px;
+}
+
+.form-control:focus{
+box-shadow:0 0 0 4px rgba(24,119,242,0.15);
+border:none;
+}
+
+/* BUTTON */
+
+.main-btn{
+width:100%;
+height:54px;
+border:none;
+border-radius:32px;
+margin-top:16px;
+background:linear-gradient(135deg,var(--primary),var(--secondary));
+color:#fff;
+font-weight:700;
+font-size:15px;
+transition:.2s;
+box-shadow:0 10px 20px rgba(24,119,242,0.2);
+}
+
+.main-btn:active{
+transform:scale(.97);
+}
+
+/* PROFILE */
+
+.profile-card{
+background:var(--card);
+margin:16px;
+padding:24px;
+border-radius:32px;
+text-align:center;
+backdrop-filter:blur(10px);
+box-shadow:var(--shadow);
+}
+
+.profile-card img{
+width:108px;
+height:108px;
+border-radius:50%;
+object-fit:cover;
+padding:4px;
+background:#fff;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.profile-card h4{
+margin-top:14px;
+font-weight:800;
+}
+
+.profile-card p{
+color:#64748b;
+margin-top:8px;
+}
+
+.stats{
+display:flex;
+justify-content:space-between;
+gap:10px;
+margin-top:24px;
+background:#f8fafc;
+padding:14px;
+border-radius:24px;
+}
+
+.stat{
+flex:1;
+}
+
+.stat h5{
+margin:0;
+font-weight:800;
+}
+
+.stat small{
+color:#94a3b8;
+}
+
+/* LOADING */
+
+.loading{
+text-align:center;
+padding:40px 20px;
+color:#64748b;
+font-weight:600;
+}
+
+.loading i{
+font-size:24px;
+margin-bottom:10px;
+display:block;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+position:fixed;
+left:14px;
+right:14px;
+bottom:12px;
+height:74px;
+background:rgba(255,255,255,0.82);
+backdrop-filter:blur(18px);
+display:flex;
+justify-content:space-around;
+align-items:center;
+border-radius:40px;
+box-shadow:0 8px 30px rgba(0,0,0,0.08);
+z-index:999;
+}
+
+.nav-btn{
+flex:1;
+text-align:center;
+font-size:12px;
+font-weight:600;
+color:#64748b;
+padding:10px;
+border-radius:24px;
+transition:.25s;
+}
+
+.nav-btn i{
+display:block;
+font-size:22px;
+margin-bottom:4px;
+}
+
+.nav-active{
+background:rgba(24,119,242,0.1);
+color:var(--primary);
+transform:translateY(-2px);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:560px){
+
+.post-media iframe{
+height:280px;
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<div class="logo">
+
+<div class="logo-circle">
+<i class="fa-solid fa-bolt"></i>
+</div>
+
+<h4>MySocial</h4>
+
+</div>
+
+<div class="top-icons">
+<i class="fa-regular fa-bell"></i>
+<i class="fa-solid fa-magnifying-glass"></i>
+</div>
+
+</div>
+
+<!-- HOME -->
+
+<div id="homePage" class="page active-page">
+
+<div id="postsArea">
+
+<div class="loading">
+<i class="fa-solid fa-circle-notch fa-spin"></i>
+Loading Posts...
+</div>
+
+</div>
+
+</div>
+
+<!-- CREATE -->
+
+<div id="createPage" class="page">
+
+<div class="box">
+
+<h4>Create New Post</h4>
+
+<input type="text" id="driveLink" class="form-control" placeholder="Paste Google Drive Photo / Video Link">
+
+<textarea id="caption" class="form-control" rows="4" placeholder="Write your caption..."></textarea>
+
+<button class="main-btn" onclick="createPost()">
+<i class="fa-solid fa-paper-plane"></i>
+ Publish Post
+</button>
+
+</div>
+
+</div>
+
+<!-- ACCOUNT -->
+
+<div id="accountPage" class="page">
+
+<div id="accountArea"></div>
+
+</div>
+
+<!-- NAVIGATION -->
+
+<div class="bottom-nav">
+
+<div class="nav-btn nav-active" onclick="showPage('homePage',this)">
+<i class="fa-solid fa-house"></i>
+Home
+</div>
+
+<div class="nav-btn" onclick="showPage('createPage',this)">
+<i class="fa-solid fa-square-plus"></i>
+Create
+</div>
+
+<div class="nav-btn" onclick="showPage('accountPage',this)">
+<i class="fa-solid fa-user"></i>
+Account
+</div>
+
+</div>
+
+<script>
+
+const API_URL = "https://script.google.com/macros/s/AKfycbz_vDU0g07vkWF221Wti1MEMOKAF0qM5CEbKlW51CFXg_sb0sdCbQYAYkvhBzZurIoM2Q/exec";
+
+function showPage(pageId,btn){
+
+document.querySelectorAll(".page").forEach(page=>{
+page.classList.remove("active-page");
+});
+
+document.getElementById(pageId).classList.add("active-page");
+
+document.querySelectorAll(".nav-btn").forEach(nav=>{
+nav.classList.remove("nav-active");
+});
+
+btn.classList.add("nav-active");
+
+if(pageId=="accountPage"){
+loadAccount();
+}
+
+}
+
+function extractFileId(url){
+
+try{
+
+if(url.includes("/d/")){
+return url.split("/d/")[1].split("/")[0];
+}
+
+if(url.includes("id=")){
+return url.split("id=")[1].split("&")[0];
+}
+
+return "";
+
+}catch(e){
+
+return "";
+
+}
+
+}
+
+async function loadPosts(){
+
+try{
+
+const res = await fetch(API_URL + "?action=getPosts");
+
+const data = await res.json();
+
+let html = "";
+
+if(!data.posts || data.posts.length==0){
+
+html = `
+<div class="loading">
+<i class="fa-regular fa-face-smile"></i>
+No posts yet. Be the first!
+</div>
+`;
+
+}else{
+
+data.posts.forEach(post=>{
+
+let media = "";
+
+if(post.post_type=="video"){
+
+const fileId = extractFileId(post.original_link);
+
+media = `
+<iframe
+src="https://drive.google.com/file/d/${fileId}/preview"
+allow="autoplay">
+</iframe>
+`;
+
+}else{
+
+media = `
+<img
+src="${post.media_url}"
+loading="lazy"
+onerror="this.src='https://via.placeholder.com/500x350?text=Image+Not+Found'"
+>
+`;
+
+}
+
+html += `
+
+<div class="post-card">
+
+<div class="post-top">
+
+<img class="post-profile" src="${post.profile_photo}">
+
+<div>
+
+<div class="post-name">
+${post.user_name}
+</div>
+
+<div class="post-time">
+${post.date} • ${post.time}
+</div>
+
+</div>
+
+</div>
+
+<div class="post-media">
+${media}
+</div>
+
+<div class="post-caption">
+${post.caption || ""}
+</div>
+
+<div class="post-actions">
+
+<div class="like-btn" onclick="likePost('${post.post_id}')">
+<i class="fa-solid fa-heart"></i>
+${post.likes} Likes
+</div>
+
+<div class="points">
+⭐ ${post.points} Points
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+document.getElementById("postsArea").innerHTML = html;
+
+}catch(err){
+
+document.getElementById("postsArea").innerHTML = `
+<div class="loading">
+<i class="fa-solid fa-triangle-exclamation"></i>
+Failed To Load Posts
+</div>
+`;
+
+}
+
+}
+
+async function createPost(){
+
+const user = JSON.parse(localStorage.getItem("user"));
+
+if(!user){
+
+alert("Please Login First");
+return;
+
+}
+
+const driveLink = document.getElementById("driveLink").value.trim();
+
+const caption = document.getElementById("caption").value.trim();
+
+if(driveLink==""){
+
+alert("Paste Google Drive Link");
+return;
+
+}
+
+const body = {
+
+action:"createPost",
+user_id:user.user_id,
+user_name:user.name,
+profile_photo:user.profile_photo,
+drive_link:driveLink,
+caption:caption
+
+};
+
+try{
+
+const res = await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify(body)
+});
+
+const data = await res.json();
+
+if(data.status){
+
+alert("Post Published Successfully");
+
+document.getElementById("driveLink").value="";
+document.getElementById("caption").value="";
+
+loadPosts();
+
+showPage("homePage",document.querySelectorAll(".nav-btn")[0]);
+
+}else{
+
+alert(data.message);
+
+}
+
+}catch(err){
+
+alert("Server Error");
+
+}
+
+}
+
+async function likePost(postId){
+
+const user = JSON.parse(localStorage.getItem("user"));
+
+if(!user){
+
+alert("Please Login First");
+return;
+
+}
+
+const body = {
+action:"likePost",
+post_id:postId,
+user_id:user.user_id
+};
+
+try{
+
+const res = await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify(body)
+});
+
+const data = await res.json();
+
+loadPosts();
+
+}catch(err){
+
+alert("Server Error");
+
+}
+
+}
+
+function loadAccount(){
+
+const user = JSON.parse(localStorage.getItem("user"));
+
+if(!user){
+
+document.getElementById("accountArea").innerHTML = `
+
+<div class="box">
+
+<h4>Welcome Back</h4>
+
+<input type="text" id="loginMobile" class="form-control" placeholder="Mobile Number">
+
+<input type="password" id="loginPassword" class="form-control" placeholder="Password">
+
+<button class="main-btn" onclick="loginUser()">
+Login
+</button>
+
+<hr style="margin:22px 0;opacity:.1;">
+
+<h4>Create Account</h4>
+
+<input type="text" id="regName" class="form-control" placeholder="Full Name">
+
+<input type="text" id="regMobile" class="form-control" placeholder="Mobile Number">
+
+<textarea id="regBio" class="form-control" placeholder="Bio"></textarea>
+
+<input type="text" id="regPhoto" class="form-control" placeholder="Google Drive Profile Photo Link">
+
+<input type="password" id="regPassword" class="form-control" placeholder="Password">
+
+<button class="main-btn" onclick="registerUser()">
+Register
+</button>
+
+</div>
+
+`;
+
+}else{
+
+document.getElementById("accountArea").innerHTML = `
+
+<div class="profile-card">
+
+<img src="${user.profile_photo}">
+
+<h4>${user.name}</h4>
+
+<p>${user.bio || ""}</p>
+
+<div class="stats">
+
+<div class="stat">
+<h5>${user.posts || 0}</h5>
+<small>Posts</small>
+</div>
+
+<div class="stat">
+<h5>${user.likes || 0}</h5>
+<small>Likes</small>
+</div>
+
+<div class="stat">
+<h5>${user.followers || 0}</h5>
+<small>Followers</small>
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<h5>${user.wallet_points || 0}</h5>
+<small>Wallet</small>
+</div>
+
+</div>
+
+<button class="main-btn" onclick="logoutUser()">
+Logout
+</button>
+
+</div>
+
+`;
+
+}
+
+}
+
+async function registerUser(){
+
+const body = {
+
+action:"register",
+name:document.getElementById("regName").value,
+mobile:document.getElementById("regMobile").value,
+bio:document.getElementById("regBio").value,
+profile_photo:document.getElementById("regPhoto").value,
+password:document.getElementById("regPassword").value
+
+};
+
+try{
+
+const res = await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify(body)
+});
+
+const data = await res.json();
+
+alert(data.message);
+
+}catch(err){
+
+alert("Server Error");
+
+}
+
+}
+
+async function loginUser(){
+
+const body = {
+
+action:"login",
+mobile:document.getElementById("loginMobile").value,
+password:document.getElementById("loginPassword").value
+
+};
+
+try{
+
+const res = await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify(body)
+});
+
+const data = await res.json();
+
+if(data.status){
+
+localStorage.setItem("user",JSON.stringify(data.user));
+
+alert("Login Success");
+
+loadAccount();
+
+}else{
+
+alert(data.message);
+
+}
+
+}catch(err){
+
+alert("Server Error");
+
+}
+
+}
+
+function logoutUser(){
+
+localStorage.removeItem("user");
+
+loadAccount();
+
+}
+
+loadPosts();
+
+</script>
+
+</body>
+</html>
