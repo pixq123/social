@@ -14,12 +14,12 @@
 
 :root{
 --bg:#f8fafc;
---card:#ffffffcc;
+--card:#ffffffee;
 --primary:#1877f2;
 --secondary:#c084fc;
 --text:#0f172a;
 --muted:#94a3b8;
---shadow:0 8px 24px rgba(15,23,42,0.06);
+--shadow:0 8px 24px rgba(15,23,42,0.08);
 }
 
 *{
@@ -51,7 +51,7 @@ justify-content:space-between;
 padding:0 18px;
 background:rgba(255,255,255,0.75);
 backdrop-filter:blur(14px);
-z-index:9999;
+z-index:99999;
 border-bottom:1px solid rgba(255,255,255,0.4);
 }
 
@@ -89,7 +89,7 @@ margin-left:18px;
 .page{
 display:none;
 padding-top:84px;
-animation:fade .3s ease;
+animation:fade .35s ease;
 }
 
 .active-page{
@@ -107,14 +107,14 @@ transform:translateY(0);
 }
 }
 
-/* CARD */
+/* POST CARD */
 
 .post-card{
 background:#fff;
 margin:16px;
 padding:18px;
 border-radius:30px;
-box-shadow:0 10px 25px rgba(0,0,0,0.05);
+box-shadow:var(--shadow);
 }
 
 .post-top{
@@ -123,11 +123,21 @@ align-items:center;
 gap:12px;
 }
 
-.post-profile{
-width:52px;
-height:52px;
-border-radius:50%;
+/* PROFILE IMAGE FIX */
+
+.post-profile,
+.profile-card img{
+
 object-fit:cover;
+background:#fff;
+display:block;
+
+}
+
+.post-profile{
+width:54px;
+height:54px;
+border-radius:50%;
 padding:2px;
 background:linear-gradient(135deg,#1877f2,#c084fc);
 }
@@ -148,12 +158,9 @@ color:#94a3b8;
 margin-top:16px;
 border-radius:24px;
 overflow:hidden;
-position:relative;
 background:#000;
-z-index:1;
+position:relative;
 }
-
-/* IMAGE */
 
 .post-media img{
 width:100%;
@@ -168,9 +175,9 @@ display:block;
 position:relative;
 width:100%;
 background:#000;
-border-radius:24px;
 overflow:hidden;
-z-index:999;
+border-radius:24px;
+z-index:99;
 }
 
 .video-wrapper iframe{
@@ -189,11 +196,6 @@ background:#000;
 
 .video-wrapper iframe{
 height:250px !important;
-}
-
-.post-media{
-border-radius:22px;
-overflow:hidden;
 }
 
 }
@@ -244,7 +246,7 @@ background:#fff;
 margin:16px;
 padding:22px;
 border-radius:30px;
-box-shadow:0 10px 25px rgba(0,0,0,0.05);
+box-shadow:var(--shadow);
 }
 
 .box h4{
@@ -293,14 +295,13 @@ margin:16px;
 padding:24px;
 border-radius:30px;
 text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,0.05);
+box-shadow:var(--shadow);
 }
 
 .profile-card img{
 width:110px;
 height:110px;
 border-radius:50%;
-object-fit:cover;
 padding:4px;
 background:#fff;
 box-shadow:0 10px 20px rgba(0,0,0,0.08);
@@ -399,7 +400,7 @@ transform:translateY(-2px);
 <i class="fa-solid fa-bolt"></i>
 </div>
 
-<h4>MySocial.</h4>
+<h4>MySocial</h4>
 
 </div>
 
@@ -479,6 +480,38 @@ Account
 
 const API_URL="https://script.google.com/macros/s/AKfycbz_vDU0g07vkWF221Wti1MEMOKAF0qM5CEbKlW51CFXg_sb0sdCbQYAYkvhBzZurIoM2Q/exec";
 
+/* PROFILE PHOTO FIX */
+
+function convertProfileLink(url){
+
+try{
+
+let fileId="";
+
+if(url.includes("/d/")){
+
+fileId=url.split("/d/")[1].split("/")[0];
+
+}
+
+else if(url.includes("id=")){
+
+fileId=url.split("id=")[1].split("&")[0];
+
+}
+
+return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+
+}catch(e){
+
+return "https://ui-avatars.com/api/?name=User";
+
+}
+
+}
+
+/* PAGE SWITCH */
+
 function showPage(pageId,btn){
 
 document.querySelectorAll(".page").forEach(page=>{
@@ -498,6 +531,8 @@ loadAccount();
 }
 
 }
+
+/* FILE ID */
 
 function extractFileId(url){
 
@@ -521,6 +556,8 @@ return "";
 
 }
 
+/* LOAD POSTS */
+
 async function loadPosts(){
 
 try{
@@ -536,7 +573,7 @@ if(!data.posts || data.posts.length==0){
 html=`
 <div class="loading">
 <i class="fa-regular fa-face-smile"></i>
-No posts yet
+No Posts Yet
 </div>
 `;
 
@@ -557,9 +594,7 @@ media=`
 <iframe
 src="https://drive.google.com/file/d/${fileId}/preview"
 allow="autoplay; fullscreen"
-allowfullscreen
-webkitallowfullscreen
-mozallowfullscreen>
+allowfullscreen>
 </iframe>
 
 </div>
@@ -586,7 +621,15 @@ html+=`
 
 <div class="post-top">
 
-<img class="post-profile" src="${post.profile_photo}">
+<img 
+
+class="post-profile"
+
+src="${convertProfileLink(post.profile_photo)}"
+
+onerror="this.src='https://ui-avatars.com/api/?name=${post.user_name}'"
+
+>
 
 <div>
 
@@ -637,13 +680,15 @@ document.getElementById("postsArea").innerHTML=html;
 
 document.getElementById("postsArea").innerHTML=`
 <div class="loading">
-Failed To Load
+Failed To Load Posts
 </div>
 `;
 
 }
 
 }
+
+/* CREATE POST */
 
 async function createPost(){
 
@@ -672,13 +717,11 @@ const body={
 action:"createPost",
 user_id:user.user_id,
 user_name:user.name,
-profile_photo:user.profile_photo,
+profile_photo:convertProfileLink(user.profile_photo),
 drive_link:driveLink,
 caption:caption
 
 };
-
-try{
 
 const res=await fetch(API_URL,{
 method:"POST",
@@ -704,13 +747,9 @@ alert(data.message);
 
 }
 
-}catch(err){
-
-alert("Server Error");
-
 }
 
-}
+/* LIKE */
 
 async function likePost(postId){
 
@@ -723,20 +762,20 @@ return;
 
 }
 
-const body={
+await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify({
 action:"likePost",
 post_id:postId,
 user_id:user.user_id
-};
-
-await fetch(API_URL,{
-method:"POST",
-body:JSON.stringify(body)
+})
 });
 
 loadPosts();
 
 }
+
+/* ACCOUNT */
 
 function loadAccount(){
 
@@ -786,7 +825,13 @@ document.getElementById("accountArea").innerHTML=`
 
 <div class="profile-card">
 
-<img src="${user.profile_photo}">
+<img 
+
+src="${convertProfileLink(user.profile_photo)}"
+
+onerror="this.src='https://ui-avatars.com/api/?name=${user.name}'"
+
+>
 
 <h4>${user.name}</h4>
 
@@ -823,6 +868,8 @@ Logout
 
 }
 
+/* REGISTER */
+
 async function registerUser(){
 
 const body={
@@ -831,7 +878,11 @@ action:"register",
 name:document.getElementById("regName").value,
 mobile:document.getElementById("regMobile").value,
 bio:document.getElementById("regBio").value,
-profile_photo:document.getElementById("regPhoto").value,
+
+profile_photo:convertProfileLink(
+document.getElementById("regPhoto").value
+),
+
 password:document.getElementById("regPassword").value
 
 };
@@ -846,6 +897,8 @@ const data=await res.json();
 alert(data.message);
 
 }
+
+/* LOGIN */
 
 async function loginUser(){
 
@@ -880,6 +933,8 @@ alert(data.message);
 
 }
 
+/* LOGOUT */
+
 function logoutUser(){
 
 localStorage.removeItem("user");
@@ -887,6 +942,8 @@ localStorage.removeItem("user");
 loadAccount();
 
 }
+
+/* START */
 
 loadPosts();
 
