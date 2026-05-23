@@ -37,20 +37,20 @@ padding-bottom:120px;
 overflow-x:hidden;
 }
 
-/* TOPBAR */
+/* HEADER */
 
 .topbar{
 position:fixed;
 top:0;
 left:0;
 width:100%;
-height:70px;
+height:72px;
 display:flex;
 align-items:center;
 justify-content:space-between;
 padding:0 18px;
-background:rgba(255,255,255,0.75);
-backdrop-filter:blur(14px);
+background:rgba(255,255,255,0.78);
+backdrop-filter:blur(16px);
 z-index:99999;
 border-bottom:1px solid rgba(255,255,255,0.4);
 }
@@ -62,8 +62,8 @@ gap:12px;
 }
 
 .logo-circle{
-width:46px;
-height:46px;
+width:48px;
+height:48px;
 border-radius:50%;
 background:linear-gradient(135deg,#1877f2,#c084fc);
 display:flex;
@@ -82,13 +82,14 @@ font-weight:800;
 .top-icons i{
 font-size:20px;
 margin-left:18px;
+color:#334155;
 }
 
 /* PAGE */
 
 .page{
 display:none;
-padding-top:84px;
+padding-top:86px;
 animation:fade .35s ease;
 }
 
@@ -123,23 +124,30 @@ align-items:center;
 gap:12px;
 }
 
-/* PROFILE IMAGE FIX */
-
-.post-profile,
-.profile-card img{
-
-object-fit:cover;
-background:#fff;
-display:block;
-
-}
+/* PROFILE IMAGE */
 
 .post-profile{
-width:50px;
-height:50px;
+width:54px;
+height:54px;
+min-width:54px;
+min-height:54px;
+
 border-radius:50%;
+object-fit:cover;
+
+display:block;
+
 padding:2px;
+
 background:linear-gradient(135deg,#1877f2,#c084fc);
+
+border:3px solid #ffffff;
+
+box-shadow:
+0 4px 12px rgba(24,119,242,0.18),
+0 2px 6px rgba(0,0,0,0.08);
+
+overflow:hidden;
 }
 
 .post-name{
@@ -164,12 +172,10 @@ position:relative;
 
 .post-media img{
 width:100%;
-max-height:500px;
+max-height:520px;
 object-fit:cover;
 display:block;
 }
-
-/* VIDEO FIX */
 
 .video-wrapper{
 position:relative;
@@ -177,7 +183,6 @@ width:100%;
 background:#000;
 overflow:hidden;
 border-radius:24px;
-z-index:99;
 }
 
 .video-wrapper iframe{
@@ -185,12 +190,10 @@ width:100%;
 height:340px;
 border:none;
 display:block;
-position:relative;
-z-index:9999;
 background:#000;
 }
 
-/* MOBILE VIDEO FIX */
+/* MOBILE VIDEO */
 
 @media(max-width:560px){
 
@@ -205,7 +208,8 @@ height:250px !important;
 .post-caption{
 margin-top:14px;
 font-size:15px;
-line-height:1.5;
+line-height:1.6;
+color:#334155;
 }
 
 /* ACTIONS */
@@ -287,7 +291,7 @@ font-size:15px;
 transform:scale(.98);
 }
 
-/* PROFILE */
+/* PROFILE PAGE */
 
 .profile-card{
 background:#fff;
@@ -301,10 +305,29 @@ box-shadow:var(--shadow);
 .profile-card img{
 width:110px;
 height:110px;
+
+min-width:110px;
+min-height:110px;
+
 border-radius:50%;
+
+object-fit:cover;
+
+display:block;
+
+margin:auto;
+
 padding:4px;
+
 background:#fff;
-box-shadow:0 10px 20px rgba(0,0,0,0.08);
+
+border:4px solid #ffffff;
+
+box-shadow:
+0 10px 25px rgba(24,119,242,0.18),
+0 4px 12px rgba(0,0,0,0.08);
+
+overflow:hidden;
 }
 
 .stats{
@@ -344,7 +367,7 @@ font-size:24px;
 margin-bottom:10px;
 }
 
-/* NAV */
+/* NAVIGATION */
 
 .bottom-nav{
 position:fixed;
@@ -352,7 +375,7 @@ left:14px;
 right:14px;
 bottom:12px;
 height:74px;
-background:rgba(255,255,255,0.9);
+background:rgba(255,255,255,0.92);
 backdrop-filter:blur(20px);
 display:flex;
 justify-content:space-around;
@@ -383,6 +406,26 @@ margin-bottom:4px;
 background:rgba(24,119,242,0.1);
 color:#1877f2;
 transform:translateY(-2px);
+}
+
+/* MOBILE PROFILE FIX */
+
+@media(max-width:560px){
+
+.post-profile{
+width:52px;
+height:52px;
+min-width:52px;
+min-height:52px;
+}
+
+.profile-card img{
+width:95px;
+height:95px;
+min-width:95px;
+min-height:95px;
+}
+
 }
 
 </style>
@@ -455,7 +498,7 @@ Loading Posts...
 
 </div>
 
-<!-- NAV -->
+<!-- NAVIGATION -->
 
 <div class="bottom-nav">
 
@@ -478,9 +521,9 @@ Account
 
 <script>
 
-const API_URL="https://script.google.com/macros/s/AKfycbz_vDU0g07vkWF221Wti1MEMOKAF0qM5CEbKlW51CFXg_sb0sdCbQYAYkvhBzZurIoM2Q/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbxeq_mYOwifFb_NM9Eo6QtQqQmJPe4ANdqaHhNbAxJvQp70suNBpmuCH2QcRYh-R7u3ZQ/exec";
 
-/* PROFILE PHOTO FIX */
+/* PROFILE IMAGE FIX */
 
 function convertProfileLink(url){
 
@@ -504,30 +547,8 @@ return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
 
 }catch(e){
 
-return "https://ui-avatars.com/api/?name=User";
+return "https://ui-avatars.com/api/?background=random&name=User";
 
-}
-
-}
-
-/* PAGE SWITCH */
-
-function showPage(pageId,btn){
-
-document.querySelectorAll(".page").forEach(page=>{
-page.classList.remove("active-page");
-});
-
-document.getElementById(pageId).classList.add("active-page");
-
-document.querySelectorAll(".nav-btn").forEach(nav=>{
-nav.classList.remove("nav-active");
-});
-
-btn.classList.add("nav-active");
-
-if(pageId=="accountPage"){
-loadAccount();
 }
 
 }
@@ -556,6 +577,28 @@ return "";
 
 }
 
+/* PAGE SWITCH */
+
+function showPage(pageId,btn){
+
+document.querySelectorAll(".page").forEach(page=>{
+page.classList.remove("active-page");
+});
+
+document.getElementById(pageId).classList.add("active-page");
+
+document.querySelectorAll(".nav-btn").forEach(nav=>{
+nav.classList.remove("nav-active");
+});
+
+btn.classList.add("nav-active");
+
+if(pageId=="accountPage"){
+loadAccount();
+}
+
+}
+
 /* LOAD POSTS */
 
 async function loadPosts(){
@@ -568,7 +611,7 @@ const data=await res.json();
 
 let html="";
 
-if(!data.posts || data.posts.length==0){
+if(!data.posts || data.posts.length===0){
 
 html=`
 <div class="loading">
@@ -583,7 +626,7 @@ data.posts.forEach(post=>{
 
 let media="";
 
-if(post.post_type=="video"){
+if(post.post_type==="video"){
 
 const fileId=extractFileId(post.original_link);
 
@@ -627,7 +670,9 @@ class="post-profile"
 
 src="${convertProfileLink(post.profile_photo)}"
 
-onerror="this.src='https://ui-avatars.com/api/?name=${post.user_name}'"
+referrerpolicy="no-referrer"
+
+onerror="this.src='https://ui-avatars.com/api/?background=random&name=${post.user_name}'"
 
 >
 
@@ -657,11 +702,11 @@ ${post.caption || ""}
 
 <div class="like-btn" onclick="likePost('${post.post_id}')">
 <i class="fa-solid fa-heart"></i>
-${post.likes}
+${post.likes || 0}
 </div>
 
 <div class="points">
-⭐ ${post.points}
+⭐ ${post.points || 0}
 </div>
 
 </div>
@@ -705,7 +750,7 @@ const driveLink=document.getElementById("driveLink").value.trim();
 
 const caption=document.getElementById("caption").value.trim();
 
-if(driveLink==""){
+if(driveLink===""){
 
 alert("Paste Google Drive Link");
 return;
@@ -717,11 +762,13 @@ const body={
 action:"createPost",
 user_id:user.user_id,
 user_name:user.name,
-profile_photo:convertProfileLink(user.profile_photo),
+profile_photo:user.profile_photo,
 drive_link:driveLink,
 caption:caption
 
 };
+
+try{
 
 const res=await fetch(API_URL,{
 method:"POST",
@@ -743,7 +790,13 @@ showPage("homePage",document.querySelectorAll(".nav-btn")[0]);
 
 }else{
 
-alert(data.message);
+alert(data.message || "Failed");
+
+}
+
+}catch(err){
+
+alert("Server Error");
 
 }
 
@@ -829,7 +882,9 @@ document.getElementById("accountArea").innerHTML=`
 
 src="${convertProfileLink(user.profile_photo)}"
 
-onerror="this.src='https://ui-avatars.com/api/?name=${user.name}'"
+referrerpolicy="no-referrer"
+
+onerror="this.src='https://ui-avatars.com/api/?background=random&name=${user.name}'"
 
 >
 
@@ -878,11 +933,7 @@ action:"register",
 name:document.getElementById("regName").value,
 mobile:document.getElementById("regMobile").value,
 bio:document.getElementById("regBio").value,
-
-profile_photo:convertProfileLink(
-document.getElementById("regPhoto").value
-),
-
+profile_photo:document.getElementById("regPhoto").value,
 password:document.getElementById("regPassword").value
 
 };
@@ -894,7 +945,7 @@ body:JSON.stringify(body)
 
 const data=await res.json();
 
-alert(data.message);
+alert(data.message || "Registered");
 
 }
 
@@ -927,7 +978,7 @@ loadAccount();
 
 }else{
 
-alert(data.message);
+alert(data.message || "Login Failed");
 
 }
 
