@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <title>MySocial Premium</title>
 
@@ -12,15 +12,27 @@
 
 <style>
 
+/* =========================
+ROOT
+========================= */
+
 :root{
+
 --bg:#f8fafc;
 --card:#ffffffee;
 --primary:#1877f2;
 --secondary:#c084fc;
 --text:#0f172a;
 --muted:#94a3b8;
---shadow:0 8px 24px rgba(15,23,42,0.08);
+
+--shadow:
+0 8px 24px rgba(15,23,42,0.08);
+
 }
+
+/* =========================
+GLOBAL
+========================= */
 
 *{
 margin:0;
@@ -31,28 +43,92 @@ font-family:Inter,Arial,sans-serif;
 }
 
 body{
+
 background:var(--bg);
 color:var(--text);
-padding-bottom:120px;
+
 overflow-x:hidden;
+
+padding-bottom:120px;
+
 }
 
-/* HEADER */
+/* =========================
+ANIMATIONS
+========================= */
+
+@keyframes fadeSlideUp{
+
+0%{
+opacity:0;
+transform:translateY(14px);
+}
+
+100%{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.06);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+@keyframes navPop{
+
+0%{
+transform:scale(.9);
+opacity:.5;
+}
+
+100%{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+/* =========================
+HEADER
+========================= */
 
 .topbar{
+
 position:fixed;
+
 top:0;
 left:0;
+
 width:100%;
 height:72px;
+
 display:flex;
 align-items:center;
 justify-content:space-between;
+
 padding:0 18px;
+
 background:rgba(255,255,255,0.78);
+
 backdrop-filter:blur(16px);
+
 z-index:99999;
+
 border-bottom:1px solid rgba(255,255,255,0.4);
+
 }
 
 .logo{
@@ -62,92 +138,134 @@ gap:12px;
 }
 
 .logo-circle{
+
 width:48px;
 height:48px;
+
 border-radius:50%;
+
 background:linear-gradient(135deg,#1877f2,#c084fc);
+
 display:flex;
 align-items:center;
 justify-content:center;
+
 color:#fff;
 font-size:20px;
-box-shadow:0 10px 20px rgba(24,119,242,0.25);
+
+box-shadow:
+0 12px 24px rgba(24,119,242,0.25);
+
+animation:pulse 4s infinite;
+
 }
 
 .logo h4{
 margin:0;
 font-weight:800;
+letter-spacing:-0.5px;
 }
 
 .top-icons i{
+
 font-size:20px;
 margin-left:18px;
 color:#334155;
+
 }
 
-/* PAGE */
+/* =========================
+PAGE
+========================= */
 
 .page{
+
 display:none;
-padding-top:86px;
-animation:fade .35s ease;
+
+padding-top:88px;
+
+animation:fadeSlideUp .35s ease;
+
 }
 
 .active-page{
 display:block;
 }
 
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(10px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* POST CARD */
+/* =========================
+POST CARD
+========================= */
 
 .post-card{
+
 background:#fff;
+
 margin:16px;
+
 padding:18px;
-border-radius:30px;
+
+border-radius:32px;
+
 box-shadow:var(--shadow);
+
+transition:.25s;
+
+border:1px solid rgba(255,255,255,0.5);
+
 }
 
+.post-card:hover{
+
+transform:translateY(-2px);
+
+box-shadow:
+0 18px 30px rgba(0,0,0,0.08);
+
+}
+
+/* =========================
+POST TOP
+========================= */
+
 .post-top{
+
 display:flex;
 align-items:center;
 gap:12px;
+
 }
 
-/* PROFILE IMAGE */
+/* =========================
+PROFILE IMAGE
+========================= */
 
 .post-profile{
+
 width:54px;
 height:54px;
+
 min-width:54px;
 min-height:54px;
 
 border-radius:50%;
+
 object-fit:cover;
 
 display:block;
 
 padding:2px;
 
-background:linear-gradient(135deg,#1877f2,#c084fc);
+background:
+linear-gradient(135deg,#1877f2,#c084fc);
 
-border:3px solid #ffffff;
+border:3px solid #fff;
 
 box-shadow:
 0 4px 12px rgba(24,119,242,0.18),
 0 2px 6px rgba(0,0,0,0.08);
 
 overflow:hidden;
+
 }
 
 .post-name{
@@ -158,42 +276,65 @@ font-size:15px;
 .post-time{
 font-size:12px;
 color:#94a3b8;
+margin-top:2px;
 }
 
-/* MEDIA */
+/* =========================
+MEDIA
+========================= */
 
 .post-media{
+
 margin-top:16px;
-border-radius:24px;
+
+border-radius:26px;
+
 overflow:hidden;
+
 background:#000;
+
 position:relative;
+
 }
 
 .post-media img{
+
 width:100%;
+
 max-height:520px;
+
 object-fit:cover;
+
 display:block;
+
 }
 
 .video-wrapper{
+
 position:relative;
+
 width:100%;
-background:#000;
+
 overflow:hidden;
-border-radius:24px;
+
+background:#000;
+
+border-radius:26px;
+
 }
 
 .video-wrapper iframe{
+
 width:100%;
 height:340px;
-border:none;
-display:block;
-background:#000;
-}
 
-/* MOBILE VIDEO */
+border:none;
+
+display:block;
+
+background:#000;
+
+}
 
 @media(max-width:560px){
 
@@ -203,31 +344,50 @@ height:250px !important;
 
 }
 
-/* CAPTION */
+/* =========================
+CAPTION
+========================= */
 
 .post-caption{
+
 margin-top:14px;
+
 font-size:15px;
+
 line-height:1.6;
+
 color:#334155;
+
 }
 
-/* ACTIONS */
+/* =========================
+POST ACTIONS
+========================= */
 
 .post-actions{
+
 display:flex;
 justify-content:space-between;
 align-items:center;
+
 margin-top:18px;
+
 }
 
 .like-btn{
+
 display:flex;
 align-items:center;
 gap:6px;
+
 font-weight:700;
+
 color:#e11d48;
+
 cursor:pointer;
+
+transition:.2s;
+
 }
 
 .like-btn i{
@@ -239,18 +399,33 @@ transform:scale(1.2);
 }
 
 .points{
+
 font-weight:700;
-color:#f59e0b;
+
+background:
+linear-gradient(135deg,#f59e0b,#facc15);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
 }
 
-/* BOX */
+/* =========================
+FORM BOX
+========================= */
 
 .box{
+
 background:#fff;
+
 margin:16px;
+
 padding:22px;
-border-radius:30px;
+
+border-radius:32px;
+
 box-shadow:var(--shadow);
+
 }
 
 .box h4{
@@ -258,172 +433,504 @@ font-weight:800;
 margin-bottom:12px;
 }
 
-/* INPUT */
+/* =========================
+INPUT
+========================= */
 
 .form-control{
+
 border:none;
-border-radius:22px;
+
+border-radius:24px;
+
 padding:15px 18px;
+
 margin-top:14px;
+
 background:#f8fafc;
+
 font-size:15px;
+
 }
 
 .form-control:focus{
-box-shadow:0 0 0 4px rgba(24,119,242,0.12);
+
+box-shadow:
+0 0 0 4px rgba(24,119,242,0.12);
+
 }
 
-/* BUTTON */
+/* =========================
+BUTTON
+========================= */
 
 .main-btn{
+
 width:100%;
-height:54px;
+
+height:56px;
+
 border:none;
-border-radius:30px;
+
+border-radius:32px;
+
 margin-top:16px;
-background:linear-gradient(135deg,#1877f2,#c084fc);
+
+background:
+linear-gradient(135deg,#1877f2,#c084fc);
+
 color:#fff;
+
 font-weight:700;
+
 font-size:15px;
+
+box-shadow:
+0 10px 20px rgba(24,119,242,0.18);
+
+transition:.2s;
+
 }
 
 .main-btn:active{
-transform:scale(.98);
+transform:scale(.97);
 }
 
-/* PROFILE PAGE */
+/* =========================
+BOTTOM NAV
+========================= */
 
-.profile-card{
+.bottom-nav{
+
+position:fixed;
+
+left:12px;
+right:12px;
+bottom:12px;
+
+height:76px;
+
+background:
+rgba(255,255,255,0.86);
+
+backdrop-filter:blur(18px);
+
+display:flex;
+justify-content:space-around;
+align-items:center;
+
+border-radius:40px;
+
+box-shadow:
+0 12px 32px rgba(0,0,0,0.10);
+
+z-index:999999;
+
+padding:0 8px;
+
+border:
+1px solid rgba(255,255,255,0.5);
+
+animation:navPop .4s ease;
+
+}
+
+.nav-btn{
+
+flex:1;
+
+height:58px;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+gap:4px;
+
+font-size:11px;
+font-weight:700;
+
+color:#64748b;
+
+border-radius:26px;
+
+transition:.25s;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.nav-btn i{
+
+font-size:22px;
+
+transition:.25s;
+
+}
+
+.nav-active{
+
+background:
+rgba(24,119,242,0.10);
+
+color:#1877f2;
+
+transform:translateY(-2px);
+
+}
+
+.nav-active i{
+
+transform:scale(1.12);
+
+}
+
+.nav-btn:active{
+transform:scale(.95);
+}
+
+/* =========================
+PREMIUM ACCOUNT DESIGN
+========================= */
+
+.premium-profile{
+
 background:#fff;
+
 margin:16px;
-padding:24px;
-border-radius:30px;
-text-align:center;
+
+border-radius:32px;
+
+overflow:hidden;
+
 box-shadow:var(--shadow);
+
+padding-bottom:24px;
+
 }
 
-.profile-card img{
-width:110px;
-height:110px;
+.profile-cover{
 
-min-width:110px;
-min-height:110px;
+height:130px;
+
+background:
+linear-gradient(135deg,#1877f2,#c084fc,#ff4fd8);
+
+}
+
+.profile-photo-wrap{
+
+position:relative;
+
+width:120px;
+height:120px;
+
+margin:auto;
+
+margin-top:-60px;
+
+}
+
+.main-profile-photo{
+
+width:120px;
+height:120px;
 
 border-radius:50%;
 
 object-fit:cover;
 
-display:block;
-
-margin:auto;
-
-padding:4px;
+border:5px solid #fff;
 
 background:#fff;
 
-border:4px solid #ffffff;
+display:block;
 
 box-shadow:
-0 10px 25px rgba(24,119,242,0.18),
-0 4px 12px rgba(0,0,0,0.08);
+0 10px 25px rgba(0,0,0,0.15);
 
-overflow:hidden;
 }
 
-.stats{
-display:flex;
-justify-content:space-between;
-margin-top:22px;
-background:#f8fafc;
-padding:14px;
-border-radius:22px;
+.online-dot{
+
+position:absolute;
+
+right:8px;
+bottom:8px;
+
+width:20px;
+height:20px;
+
+background:#22c55e;
+
+border-radius:50%;
+
+border:3px solid #fff;
+
 }
 
-.stat{
-flex:1;
-}
+.profile-name{
 
-.stat h5{
-margin:0;
+margin-top:18px;
+
 font-weight:800;
+
+font-size:24px;
+
+text-align:center;
+
 }
 
-.stat small{
+.user-id{
+
+text-align:center;
+
+font-size:13px;
+
 color:#94a3b8;
+
+margin-top:4px;
+
 }
 
-/* LOADING */
+.profile-bio{
+
+text-align:center;
+
+padding:0 20px;
+
+margin-top:14px;
+
+font-size:14px;
+
+line-height:1.7;
+
+color:#475569;
+
+}
+
+.premium-stats{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:14px;
+
+padding:20px;
+
+}
+
+.premium-stat{
+
+background:#f8fafc;
+
+padding:18px;
+
+border-radius:24px;
+
+text-align:center;
+
+}
+
+.premium-stat i{
+
+font-size:20px;
+
+color:#1877f2;
+
+margin-bottom:10px;
+
+}
+
+.premium-stat h5{
+
+margin:0;
+
+font-size:22px;
+
+font-weight:800;
+
+}
+
+.premium-stat span{
+
+font-size:13px;
+
+color:#94a3b8;
+
+}
+
+.wallet-card{
+
+margin:0 20px;
+
+padding:22px;
+
+border-radius:28px;
+
+background:
+linear-gradient(135deg,#f59e0b,#facc15);
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+color:#fff;
+
+}
+
+.wallet-title{
+
+font-size:13px;
+
+}
+
+.wallet-points{
+
+font-size:28px;
+
+font-weight:800;
+
+margin-top:4px;
+
+}
+
+.wallet-icon{
+
+font-size:34px;
+
+}
+
+.account-details-box{
+
+margin:20px;
+
+background:#fff;
+
+padding:22px;
+
+border-radius:28px;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,0.05);
+
+}
+
+.account-details-box h4{
+
+font-weight:800;
+
+margin-bottom:18px;
+
+}
+
+.detail-item{
+
+display:flex;
+align-items:center;
+gap:14px;
+
+padding:14px 0;
+
+border-bottom:1px solid #f1f5f9;
+
+font-size:15px;
+
+}
+
+.detail-item:last-child{
+border:none;
+}
+
+.detail-item i{
+
+width:38px;
+height:38px;
+
+border-radius:14px;
+
+background:#f8fafc;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+color:#1877f2;
+
+}
+
+.update-box{
+
+margin:20px;
+
+background:#fff;
+
+padding:22px;
+
+border-radius:28px;
+
+box-shadow:
+0 8px 24px rgba(0,0,0,0.05);
+
+}
+
+.update-box h4{
+
+font-weight:800;
+
+margin-bottom:16px;
+
+}
+
+.logout-btn{
+
+width:calc(100% - 40px);
+
+margin:20px;
+
+height:58px;
+
+border:none;
+
+border-radius:30px;
+
+background:#ef4444;
+
+color:#fff;
+
+font-weight:700;
+
+font-size:15px;
+
+}
 
 .loading{
+
 text-align:center;
+
 padding:40px;
-color:#64748b;
+
 font-weight:700;
-}
 
-.loading i{
-display:block;
-font-size:24px;
-margin-bottom:10px;
-}
-
-/* NAVIGATION */
-
-.bottom-nav{
-position:fixed;
-left:14px;
-right:14px;
-bottom:12px;
-height:74px;
-background:rgba(255,255,255,0.92);
-backdrop-filter:blur(20px);
-display:flex;
-justify-content:space-around;
-align-items:center;
-border-radius:40px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-z-index:99999;
-}
-
-.nav-btn{
-flex:1;
-text-align:center;
-padding:10px;
-font-size:12px;
-font-weight:700;
 color:#64748b;
-border-radius:24px;
-transition:.25s;
-}
 
-.nav-btn i{
-display:block;
-font-size:22px;
-margin-bottom:4px;
 }
-
-.nav-active{
-background:rgba(24,119,242,0.1);
-color:#1877f2;
-transform:translateY(-2px);
-}
-
-/* MOBILE PROFILE FIX */
 
 @media(max-width:560px){
 
-.post-profile{
-width:52px;
-height:52px;
-min-width:52px;
-min-height:52px;
+.main-profile-photo{
+width:104px;
+height:104px;
 }
 
-.profile-card img{
-width:95px;
-height:95px;
-min-width:95px;
-min-height:95px;
+.profile-photo-wrap{
+width:104px;
+height:104px;
 }
 
 }
@@ -432,8 +939,6 @@ min-height:95px;
 
 </head>
 <body>
-
-<!-- TOPBAR -->
 
 <div class="topbar">
 
@@ -454,8 +959,6 @@ min-height:95px;
 
 </div>
 
-<!-- HOME -->
-
 <div id="homePage" class="page active-page">
 
 <div id="postsArea">
@@ -468,8 +971,6 @@ Loading Posts...
 </div>
 
 </div>
-
-<!-- CREATE -->
 
 <div id="createPage" class="page">
 
@@ -490,31 +991,27 @@ Loading Posts...
 
 </div>
 
-<!-- ACCOUNT -->
-
 <div id="accountPage" class="page">
 
 <div id="accountArea"></div>
 
 </div>
 
-<!-- NAVIGATION -->
-
 <div class="bottom-nav">
 
 <div class="nav-btn nav-active" onclick="showPage('homePage',this)">
 <i class="fa-solid fa-house"></i>
-Home
+<span>Home</span>
 </div>
 
 <div class="nav-btn" onclick="showPage('createPage',this)">
-<i class="fa-solid fa-square-plus"></i>
-Create
+<i class="fa-solid fa-plus"></i>
+<span>Create</span>
 </div>
 
 <div class="nav-btn" onclick="showPage('accountPage',this)">
 <i class="fa-solid fa-user"></i>
-Account
+<span>Account</span>
 </div>
 
 </div>
@@ -523,8 +1020,6 @@ Account
 
 const API_URL="https://script.google.com/macros/s/AKfycbxeq_mYOwifFb_NM9Eo6QtQqQmJPe4ANdqaHhNbAxJvQp70suNBpmuCH2QcRYh-R7u3ZQ/exec";
 
-/* PROFILE IMAGE FIX */
-
 function convertProfileLink(url){
 
 try{
@@ -532,15 +1027,10 @@ try{
 let fileId="";
 
 if(url.includes("/d/")){
-
 fileId=url.split("/d/")[1].split("/")[0];
-
 }
-
 else if(url.includes("id=")){
-
 fileId=url.split("id=")[1].split("&")[0];
-
 }
 
 return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
@@ -552,8 +1042,6 @@ return "https://ui-avatars.com/api/?background=random&name=User";
 }
 
 }
-
-/* FILE ID */
 
 function extractFileId(url){
 
@@ -577,8 +1065,6 @@ return "";
 
 }
 
-/* PAGE SWITCH */
-
 function showPage(pageId,btn){
 
 document.querySelectorAll(".page").forEach(page=>{
@@ -593,13 +1079,11 @@ nav.classList.remove("nav-active");
 
 btn.classList.add("nav-active");
 
-if(pageId=="accountPage"){
+if(pageId==="accountPage"){
 loadAccount();
 }
 
 }
-
-/* LOAD POSTS */
 
 async function loadPosts(){
 
@@ -613,12 +1097,7 @@ let html="";
 
 if(!data.posts || data.posts.length===0){
 
-html=`
-<div class="loading">
-<i class="fa-regular fa-face-smile"></i>
-No Posts Yet
-</div>
-`;
+html=`<div class="loading">No Posts Yet</div>`;
 
 }else{
 
@@ -636,7 +1115,7 @@ media=`
 
 <iframe
 src="https://drive.google.com/file/d/${fileId}/preview"
-allow="autoplay; fullscreen"
+allow="autoplay"
 allowfullscreen>
 </iframe>
 
@@ -669,8 +1148,6 @@ html+=`
 class="post-profile"
 
 src="${convertProfileLink(post.profile_photo)}"
-
-referrerpolicy="no-referrer"
 
 onerror="this.src='https://ui-avatars.com/api/?background=random&name=${post.user_name}'"
 
@@ -723,112 +1200,11 @@ document.getElementById("postsArea").innerHTML=html;
 
 }catch(err){
 
-document.getElementById("postsArea").innerHTML=`
-<div class="loading">
-Failed To Load Posts
-</div>
-`;
+document.getElementById("postsArea").innerHTML=`Failed`;
 
 }
 
 }
-
-/* CREATE POST */
-
-async function createPost(){
-
-const user=JSON.parse(localStorage.getItem("user"));
-
-if(!user){
-
-alert("Please Login First");
-return;
-
-}
-
-const driveLink=document.getElementById("driveLink").value.trim();
-
-const caption=document.getElementById("caption").value.trim();
-
-if(driveLink===""){
-
-alert("Paste Google Drive Link");
-return;
-
-}
-
-const body={
-
-action:"createPost",
-user_id:user.user_id,
-user_name:user.name,
-profile_photo:user.profile_photo,
-drive_link:driveLink,
-caption:caption
-
-};
-
-try{
-
-const res=await fetch(API_URL,{
-method:"POST",
-body:JSON.stringify(body)
-});
-
-const data=await res.json();
-
-if(data.status){
-
-alert("Post Published");
-
-document.getElementById("driveLink").value="";
-document.getElementById("caption").value="";
-
-loadPosts();
-
-showPage("homePage",document.querySelectorAll(".nav-btn")[0]);
-
-}else{
-
-alert(data.message || "Failed");
-
-}
-
-}catch(err){
-
-alert("Server Error");
-
-}
-
-}
-
-/* LIKE */
-
-async function likePost(postId){
-
-const user=JSON.parse(localStorage.getItem("user"));
-
-if(!user){
-
-alert("Please Login First");
-return;
-
-}
-
-await fetch(API_URL,{
-method:"POST",
-body:JSON.stringify({
-action:"likePost",
-post_id:postId,
-user_id:user.user_id
-})
-});
-
-loadPosts();
-
-}
-
-/* ACCOUNT */
 
 function loadAccount(){
 
@@ -876,42 +1252,139 @@ Register
 
 document.getElementById("accountArea").innerHTML=`
 
-<div class="profile-card">
+<div class="premium-profile">
+
+<div class="profile-cover"></div>
+
+<div class="profile-photo-wrap">
 
 <img 
-
+class="main-profile-photo"
 src="${convertProfileLink(user.profile_photo)}"
-
-referrerpolicy="no-referrer"
-
-onerror="this.src='https://ui-avatars.com/api/?background=random&name=${user.name}'"
-
 >
 
-<h4>${user.name}</h4>
+<div class="online-dot"></div>
 
-<p>${user.bio || ""}</p>
+</div>
 
-<div class="stats">
+<h3 class="profile-name">
+${user.name}
+</h3>
 
-<div class="stat">
+<div class="user-id">
+ID : ${user.user_id || "USR001"}
+</div>
+
+<p class="profile-bio">
+${user.bio || ""}
+</p>
+
+<div class="premium-stats">
+
+<div class="premium-stat">
+<i class="fa-solid fa-image"></i>
 <h5>${user.posts || 0}</h5>
-<small>Posts</small>
+<span>Posts</span>
 </div>
 
-<div class="stat">
+<div class="premium-stat">
+<i class="fa-solid fa-heart"></i>
 <h5>${user.likes || 0}</h5>
-<small>Likes</small>
+<span>Likes</span>
 </div>
 
-<div class="stat">
-<h5>${user.wallet_points || 0}</h5>
-<small>Wallet</small>
+<div class="premium-stat">
+<i class="fa-solid fa-user-group"></i>
+<h5>${user.followers || 0}</h5>
+<span>Followers</span>
+</div>
+
+<div class="premium-stat">
+<i class="fa-solid fa-user-plus"></i>
+<h5>${user.following || 0}</h5>
+<span>Following</span>
 </div>
 
 </div>
 
-<button class="main-btn" onclick="logoutUser()">
+<div class="wallet-card">
+
+<div>
+
+<div class="wallet-title">
+Wallet Balance
+</div>
+
+<div class="wallet-points">
+⭐ ${user.wallet_points || 0}
+</div>
+
+</div>
+
+<i class="fa-solid fa-wallet wallet-icon"></i>
+
+</div>
+
+<div class="account-details-box">
+
+<h4>
+<i class="fa-solid fa-user-gear"></i>
+ Account Details
+</h4>
+
+<div class="detail-item">
+<i class="fa-solid fa-phone"></i>
+<span>${user.mobile || "Not Added"}</span>
+</div>
+
+<div class="detail-item">
+<i class="fa-solid fa-lock"></i>
+<span>${user.password || "******"}</span>
+</div>
+
+</div>
+
+<div class="update-box">
+
+<h4>
+<i class="fa-solid fa-pen"></i>
+ Update Profile
+</h4>
+
+<input 
+type="text" 
+id="updateName" 
+class="form-control"
+value="${user.name || ""}"
+>
+
+<textarea
+id="updateBio"
+class="form-control"
+rows="3"
+>${user.bio || ""}</textarea>
+
+<input 
+type="text"
+id="updatePhoto"
+class="form-control"
+value="${user.profile_photo || ""}"
+>
+
+<input 
+type="password"
+id="updatePassword"
+class="form-control"
+value="${user.password || ""}"
+>
+
+<button class="main-btn" onclick="updateProfile()">
+Save Changes
+</button>
+
+</div>
+
+<button class="logout-btn" onclick="logoutUser()">
 Logout
 </button>
 
@@ -923,17 +1396,99 @@ Logout
 
 }
 
-/* REGISTER */
+async function createPost(){
+
+const user=JSON.parse(localStorage.getItem("user"));
+
+if(!user){
+
+alert("Please Login First");
+return;
+
+}
+
+const driveLink=document.getElementById("driveLink").value.trim();
+
+const caption=document.getElementById("caption").value.trim();
+
+const body={
+
+action:"createPost",
+
+user_id:user.user_id,
+
+user_name:user.name,
+
+profile_photo:user.profile_photo,
+
+drive_link:driveLink,
+
+caption:caption
+
+};
+
+const res=await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify(body)
+});
+
+const data=await res.json();
+
+if(data.status){
+
+alert("Post Published");
+
+document.getElementById("driveLink").value="";
+document.getElementById("caption").value="";
+
+loadPosts();
+
+}else{
+
+alert("Failed");
+
+}
+
+}
+
+async function likePost(postId){
+
+const user=JSON.parse(localStorage.getItem("user"));
+
+if(!user){
+
+alert("Please Login First");
+return;
+
+}
+
+await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify({
+action:"likePost",
+post_id:postId,
+user_id:user.user_id
+})
+});
+
+loadPosts();
+
+}
 
 async function registerUser(){
 
 const body={
 
 action:"register",
+
 name:document.getElementById("regName").value,
+
 mobile:document.getElementById("regMobile").value,
+
 bio:document.getElementById("regBio").value,
+
 profile_photo:document.getElementById("regPhoto").value,
+
 password:document.getElementById("regPassword").value
 
 };
@@ -949,14 +1504,14 @@ alert(data.message || "Registered");
 
 }
 
-/* LOGIN */
-
 async function loginUser(){
 
 const body={
 
 action:"login",
+
 mobile:document.getElementById("loginMobile").value,
+
 password:document.getElementById("loginPassword").value
 
 };
@@ -978,13 +1533,62 @@ loadAccount();
 
 }else{
 
-alert(data.message || "Login Failed");
+alert("Login Failed");
 
 }
 
 }
 
-/* LOGOUT */
+async function updateProfile(){
+
+const currentUser=
+JSON.parse(localStorage.getItem("user"));
+
+const body={
+
+action:"updateProfile",
+
+user_id:currentUser.user_id,
+
+name:
+document.getElementById("updateName").value,
+
+bio:
+document.getElementById("updateBio").value,
+
+profile_photo:
+document.getElementById("updatePhoto").value,
+
+password:
+document.getElementById("updatePassword").value
+
+};
+
+const res=await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify(body)
+});
+
+const data=await res.json();
+
+if(data.status){
+
+localStorage.setItem(
+"user",
+JSON.stringify(data.user)
+);
+
+alert("Profile Updated");
+
+loadAccount();
+
+}else{
+
+alert("Update Failed");
+
+}
+
+}
 
 function logoutUser(){
 
@@ -993,8 +1597,6 @@ localStorage.removeItem("user");
 loadAccount();
 
 }
-
-/* START */
 
 loadPosts();
 
